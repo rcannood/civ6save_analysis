@@ -1,3 +1,23 @@
+enum terrainType : u32 {
+    Ocean = 0x47C909DD,
+    Coast = 0x4A707A11,
+    Tundra = 0x48F29EAB,
+    TundraHill = 0xEB62B0F6,
+    TundraMountain = 0xDF49DDBD,
+    Snow = 0x67EA840F,
+    SnowHill = 0xE5031280,
+    SnowMountain = 0x29B146F4,
+    Grassland = 0x83E7C630,
+    GrasslandHill = 0x6E9D0C70,
+    GrasslandMountain = 0x5F83B433,
+    Desert = 0xE5A80A2C,
+    DesertHill = 0xB94134B3,
+    DesertMountain = 0x5490BEF9,
+    Plains = 0xFBE6865E,
+    PlainsHill = 0xE6CE649E,
+    PlainsMountain = 0xA3B9A8F0
+};
+
 bitfield Flags {
     bit0 : 1;
     bit1 : 1;
@@ -14,8 +34,8 @@ bitfield TileFlags2 {
     bit2 : 1;
     bit3 : 1;
     bit4 : 1;
+    bit5 : 1;
     owned_by_player : 1;
-    bit6 : 1;
     bit7 : 1;
 };
 bitfield TileFlags4 {
@@ -42,7 +62,7 @@ struct Tile {
     u32 travel_regions;
     u32 connected_regions;
     u32 landmass;
-    u32 terrain;
+    terrainType terrain;
     u32 feature;
     u16 natural_wonder_order;
     u32 continent;
@@ -82,7 +102,9 @@ struct Tile {
     }
 };
 
+// s128 start = std::mem::find_sequence(0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0, 0);
+
 s128 start = 0x0010B933;
-Tile tile0 @ start;
-Tile tile14 @ start + 14*79;
-Tile tile15 @ start + 14*79 + 55;
+Tile tiles[15] @ start;
+// Tile tile14 @ start + 14*79;
+// Tile tile15 @ start + 14*79 + 55;
