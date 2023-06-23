@@ -1,0 +1,9 @@
+#include <std/mem.pat>  
+#include <civ6save.hexpat>
+
+// s128 start = std::mem::find_sequence(0x0000000E, 0x0000000F, 0x00000006);
+
+s128 start = 0x0010B933;
+Tile tiles[15] @ start;
+// Tile tile14 @ start + 14*79;
+// Tile tile15 @ start + 14*79 + 55;
