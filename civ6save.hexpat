@@ -84,4 +84,5 @@ struct Tile {
 
 s128 start = 0x0010B933;
 Tile tile0 @ start;
-Tile tile13 @ start + 13*79;
+Tile tile14 @ start + 14*79;
+Tile tile15 @ start + 14*79 + 55;
