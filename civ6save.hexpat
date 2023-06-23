@@ -67,32 +67,12 @@ struct Tile {
     Flags flags6;
     Flags flags7;
     
-    if (flags4.co2) {
-        u8 co2_byte0;
-        u8 co2_byte1;
-        u8 co2_byte2;
-        u8 co2_byte3;
-        u8 co2_byte4;
+    if (flags4.co2 || flags4.bit1) {
+        u8 co2_bytes[23];
         CO2Flags co2_flags;
-        if (co2_flags.mountain_improvement) {
-            u8 mountain_improvement_byte0;
-            u8 mountain_improvement_byte1;
-            u8 mountain_improvement_byte2;
-            u8 mountain_improvement_byte3;
-            u8 mountain_improvement_byte4;
+        if (co2_flags.mountain_improvement || flags4.bit1) {
+            u8 mountain_improvement_bytes[20];
         }
-    } else if (flags4.bit1) {
-        u8 flag4bit1_byte0;
-        u8 flag4bit1_byte1;
-        u8 flag4bit1_byte2;
-        u8 flag4bit1_byte3;
-        u8 flag4bit1_byte4;
-        u8 flag4bit1_byte5;
-        u8 flag4bit1_byte6;
-        u8 flag4bit1_byte7;
-        u8 flag4bit1_byte8;
-        u8 flag4bit1_byte9;
-        u8 flag4bit1_byte10;
     }
     if (flags2.owned_by_player) {
         u64 city;
@@ -102,6 +82,6 @@ struct Tile {
     }
 };
 
-// s128 start = 0x0010B933;
-// Tile tile0 @ start;
-// Tile tile13 @ start + 13*79;
+s128 start = 0x0010B933;
+Tile tile0 @ start;
+Tile tile13 @ start + 13*79;
