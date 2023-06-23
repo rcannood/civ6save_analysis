@@ -28,7 +28,8 @@ bitfield Flags {
     bit6 : 1;
     bit7 : 1;
 };
-bitfield TileFlags2 {
+
+bitfield OwnerFlags {
     bit0 : 1;
     bit1 : 1;
     bit2 : 1;
@@ -38,26 +39,7 @@ bitfield TileFlags2 {
     owned_by_player : 1;
     bit7 : 1;
 };
-bitfield TileFlags4 {
-    co2 : 1;
-    bit1 : 1;
-    bit2 : 1;
-    bit3 : 1;
-    bit4 : 1;
-    bit5 : 1;
-    bit6 : 1;
-    bit7 : 1;
-};
-bitfield CO2Flags {
-    mountain_improvement: 1; // ski resort or tunnel?
-    bit1 : 1;
-    bit2 : 1;
-    bit3 : 1;
-    bit4 : 1;
-    bit5 : 1;
-    bit6 : 1;
-    bit7 : 1;
-};
+
 struct Tile {
     u32 travel_regions;
     u32 connected_regions;
@@ -80,20 +62,18 @@ struct Tile {
     u8 river_map;
     u8 cliff_map;
     Flags flags1;
-    TileFlags2 flags2;
+    OwnerFlags flags2;
     Flags flags3;
-    TileFlags4 flags4;
-    Flags flags5;
-    Flags flags6;
-    Flags flags7;
+    u32 tile_overlay_num;
     
-    if (flags4.co2 || flags4.bit1) {
-        u8 co2_bytes[23];
-        CO2Flags co2_flags;
-        if (co2_flags.mountain_improvement || flags4.bit1) {
-            u8 mountain_improvement_bytes[20];
-        }
+    if (tile_overlay_num == 1) {
+        u8 buffer1[24];
+    } else if (tile_overlay_num == 2) {
+        u8 buffer2[44];
+    } else if (tile_overlay_num == 3) {
+        u8 buffer3[64];
     }
+
     if (flags2.owned_by_player) {
         u64 city;
         u32 district;
