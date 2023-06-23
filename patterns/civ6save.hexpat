@@ -71,7 +71,6 @@ enum ContinentType : s32 {
     Artica = 0xBB2BBCAD,
     NorthAmerica = 0xCF481ECD,
     Africa = 0x5D2116C9,
-    CongoCraton = 0xC242D2D4
 };
 
 enum ResourceType : s32 {
