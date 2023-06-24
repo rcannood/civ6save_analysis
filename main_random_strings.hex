@@ -1,0 +1,44 @@
+#include <std/mem.pat>  
+#include <std/string.pat>
+#include <civ6save.hexpat>
+
+// s128 start = std::mem::find_sequence(0x0000000E, 0x0000000F, 0x00000006);
+#pragma pattern_limit 1048576
+
+
+s128 start = 0x0010B933;
+u32 numTiles @ start - 4;
+Tile tiles[numTiles] @ start;
+
+std::string::SizedString<u32> str_00 @ 0x001430C0;
+std::string::SizedString<u32> str_01 @ 0x001430E1;
+
+std::string::SizedString<u32> str00 @ 0x00155C07;
+std::string::SizedString<u32> str01 @ 0x001565C6;
+std::string::SizedString<u32> str02 @ 0x00156FEB;
+std::string::SizedString<u32> str03 @ 0x0015728F;
+std::string::SizedString<u32> str04 @ 0x00157531;
+std::string::SizedString<u32> str05 @ 0x001577D2;
+std::string::SizedString<u32> str06 @ 0x00157A71;
+std::string::SizedString<u32> str07 @ 0x00157D13;
+std::string::SizedString<u32> str08 @ 0x00157FB5;
+std::string::SizedString<u32> str09 @ 0x00158254;
+std::string::SizedString<u32> str10 @ 0x001584F5;
+std::string::SizedString<u32> str11 @ 0x00158A16;
+std::string::SizedString<u32> str12 @ 0x0015A341;
+std::string::SizedString<u32> str13 @ 0x0015D7FE;
+std::string::SizedString<u32> str14 @ 0x0015F123;
+std::string::SizedString<u32> str15 @ 0x00161BDC;
+std::string::SizedString<u32> str16 @ 0x0016238B;
+std::string::SizedString<u32> str17 @ 0x00165FD5;
+std::string::SizedString<u32> str18 @ 0x001664F4;
+std::string::SizedString<u32> str19 @ 0x0016DB84;
+
+std::string::SizedString<u32> str20 @ 0x001806FE;
+std::string::SizedString<u32> str21 @ 0x00180752;
+std::string::SizedString<u32> str22 @ 0x001807AC;
+std::string::SizedString<u32> str23 @ 0x00180800;
+std::string::SizedString<u32> str24 @ 0x00180838;
+std::string::SizedString<u32> str25 @ 0x00180890;
+std::string::SizedString<u32> str26 @ 0x001808F1;
+
