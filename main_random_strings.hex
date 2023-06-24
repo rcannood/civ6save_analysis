@@ -45,25 +45,68 @@ std::string::SizedString<u32> str26 @ 0x001808F1;
 std::string::SizedString<u32> str30 @ 0x001A2706;
 std::string::SizedString<u32> str31 @ 0x001A28DF;
 
-struct SomeStringStruct {
-    u32 w1;
-    u32 w2;
-    u32 w3;
+struct SomeStringStructSuffix {
+    u32 numArgs;
     std::string::SizedString<u32> s;
+    u32 args[numArgs];
+    u32 unknown;
 };
-std::string::SizedString<u32> str40 @ 0x001E9B85;
-std::string::SizedString<u32> str41 @ 0x001E9C03;
-std::string::SizedString<u32> str42 @ 0x001E9C6C;
-SomeStringStruct ssss43 @ 0x001E9CC7-12;
-SomeStringStruct ssss44 @ 0x001E9CE6-12;
-SomeStringStruct ssss45 @ 0x001E9D0B-12;
-SomeStringStruct ssss46 @ 0x001E9D36-12;
-SomeStringStruct ssss47 @ 0x001E9D60-12;
-std::string::SizedString<u32> str48 @ 0x001E9DDE;
-std::string::SizedString<u32> str49 @ 0x001E9E47;
-std::string::SizedString<u32> str50 @ 0x001E9EA2;
-SomeStringStruct ssss51 @ 0x001E9EC1-12;
-SomeStringStruct ssss52 @ 0x001E9EE6-12;
-SomeStringStruct ssss53 @ 0x001E9F11-12;
-std::string::SizedString<u32> str54 @ 0x001E9F3B;
-std::string::SizedString<u32> str55 @ 0x001E9FB9;
+
+SomeStringStructSuffix ssss40 @ 0x001E9B85-4;
+SomeStringStructSuffix ssss41 @ 0x001E9C03-4;
+SomeStringStructSuffix ssss42 @ 0x001E9C6C-4;
+SomeStringStructSuffix ssss43 @ 0x001E9CC7-4;
+SomeStringStructSuffix ssss44 @ 0x001E9CE6-4;
+SomeStringStructSuffix ssss45 @ 0x001E9D0B-4;
+SomeStringStructSuffix ssss46 @ 0x001E9D36-4;
+SomeStringStructSuffix ssss47 @ 0x001E9D60-4;
+
+SomeStringStructSuffix ssss48 @ 0x001E9DDE-4;
+SomeStringStructSuffix ssss49 @ 0x001E9E47-4;
+
+SomeStringStructSuffix ssss50 @ 0x001E9EA2-4;
+SomeStringStructSuffix ssss51 @ 0x001E9EC1-4;
+SomeStringStructSuffix ssss52 @ 0x001E9EE6-4;
+SomeStringStructSuffix ssss53 @ 0x001E9F11-4;
+
+SomeStringStructSuffix ssss54 @ 0x001E9F3B-4;
+SomeStringStructSuffix ssss55 @ 0x001E9FB9-4;
+
+SomeStringStructSuffix ssss56 @ 0x001EA01E;
+SomeStringStructSuffix ssss57[4] @ 0x001EA079;
+
+SomeStringStructSuffix ssss58 @ 0x001EA112;
+SomeStringStructSuffix ssss59 @ 0x001EA190;
+SomeStringStructSuffix ssss60 @ 0x001EA1F9;
+
+SomeStringStructSuffix ssss61[4] @ 0x001EA254;
+SomeStringStructSuffix ssss62 @ 0x001EA2ED;
+SomeStringStructSuffix ssss63 @ 0x001EA36B;
+SomeStringStructSuffix ssss64 @ 0x001EA3D4;
+SomeStringStructSuffix ssss65[4] @ 0x001EA42F;
+SomeStringStructSuffix ssss66 @ 0x001EA4C8;
+
+SomeStringStructSuffix ssss67 @ 0x001EA54F-4;
+SomeStringStructSuffix ssss68 @ 0x001EA5BB-4;
+
+SomeStringStructSuffix ssss69[4] @ 0x001EA613;
+SomeStringStructSuffix ssss70 @ 0x001EA6AC;
+SomeStringStructSuffix ssss71 @ 0x001EA6FF;
+SomeStringStructSuffix ssss72 @ 0x001EA767;
+SomeStringStructSuffix ssss73 @ 0x001EA7C9;
+SomeStringStructSuffix ssss74 @ 0x001EA7FB;
+SomeStringStructSuffix ssss75 @ 0x001EA84E;
+SomeStringStructSuffix ssss76 @ 0x001EA8B6;
+SomeStringStructSuffix ssss77 @ 0x001EA918;
+SomeStringStructSuffix ssss78 @ 0x001EA94A;
+SomeStringStructSuffix ssss79 @ 0x001EA99D;
+SomeStringStructSuffix ssss80 @ 0x001EAA05;
+SomeStringStructSuffix ssss81 @ 0x001EAA67;
+SomeStringStructSuffix ssss82 @ 0x001EAA99;
+SomeStringStructSuffix ssss83 @ 0x001EAAF5;
+SomeStringStructSuffix ssss84 @ 0x001EAB62;
+SomeStringStructSuffix ssss85 @ 0x001EABBE;
+SomeStringStructSuffix ssss86 @ 0x001EABF0;
+
+
+std::string::SizedString<u32> str100 @ 0x001EE708;
