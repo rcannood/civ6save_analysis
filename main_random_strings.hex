@@ -42,3 +42,28 @@ std::string::SizedString<u32> str24 @ 0x00180838;
 std::string::SizedString<u32> str25 @ 0x00180890;
 std::string::SizedString<u32> str26 @ 0x001808F1;
 
+std::string::SizedString<u32> str30 @ 0x001A2706;
+std::string::SizedString<u32> str31 @ 0x001A28DF;
+
+struct SomeStringStruct {
+    u32 w1;
+    u32 w2;
+    u32 w3;
+    std::string::SizedString<u32> s;
+};
+std::string::SizedString<u32> str40 @ 0x001E9B85;
+std::string::SizedString<u32> str41 @ 0x001E9C03;
+std::string::SizedString<u32> str42 @ 0x001E9C6C;
+SomeStringStruct ssss43 @ 0x001E9CC7-12;
+SomeStringStruct ssss44 @ 0x001E9CE6-12;
+SomeStringStruct ssss45 @ 0x001E9D0B-12;
+SomeStringStruct ssss46 @ 0x001E9D36-12;
+SomeStringStruct ssss47 @ 0x001E9D60-12;
+std::string::SizedString<u32> str48 @ 0x001E9DDE;
+std::string::SizedString<u32> str49 @ 0x001E9E47;
+std::string::SizedString<u32> str50 @ 0x001E9EA2;
+SomeStringStruct ssss51 @ 0x001E9EC1-12;
+SomeStringStruct ssss52 @ 0x001E9EE6-12;
+SomeStringStruct ssss53 @ 0x001E9F11-12;
+std::string::SizedString<u32> str54 @ 0x001E9F3B;
+std::string::SizedString<u32> str55 @ 0x001E9FB9;
