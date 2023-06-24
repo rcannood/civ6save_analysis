@@ -20,7 +20,7 @@ enum TerrainType : s32 {
 
 enum FeatureType : s32 {
     None = 0xFFFFFFFF,
-    Forest = 0xA220944,
+    Forest = 0x0A220944,
     Marsh = 0x235559C3,
     WonderEyeofSahara = 0x2723C819,
     WonderUbsunurHollow = 0x4486F4EE,
@@ -34,10 +34,10 @@ enum FeatureType : s32 {
 
 enum ImprovementType : s32 {
     None = 0xFFFFFFFF,
-    Chateau = 0x252AC5E,
-    Pasture = 0x9354DA1,
-    IceHockeyRink = 0xA0762EB,
-    Farm = 0xA0929B1,
+    Chateau = 0x0252AC5E,
+    Pasture = 0x09354DA1,
+    IceHockeyRink = 0x0A0762EB,
+    Farm = 0x0A0929B1,
     WindFarm = 0x1F084217,
     SeasideResort = 0x2207B4D2,
     FishingBoats = 0x22750191,
