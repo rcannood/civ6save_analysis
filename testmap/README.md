@@ -1,5 +1,9 @@
 # TestMap
 
+A map for decyphering the Civ6Save format.
+
+![](TestMap_Screenshot.jpg)
+
 - All terrains
 - All features
 - Almost all improvements (Except barbarian outpost)
