@@ -42,13 +42,49 @@ std::string::SizedString<u32> str24 @ 0x00180838;
 std::string::SizedString<u32> str25 @ 0x00180890;
 std::string::SizedString<u32> str26 @ 0x001808F1;
 
-struct NumberList {
+
+
+struct ValsPad32 {
     u32 value;
     u32 zero;
 };
-u32 NumbersAddress = 0x00181CFA;
-u32 NumNumbers @ NumbersAddress;
-NumberList numbers[NumNumbers] @ NumbersAddress + 4;
+
+struct ValsPad8 {
+    u32 value;
+    u8 zero;
+};
+
+struct SizedNumBase<DataType> {
+    u32 size;
+	DataType data[size];
+};
+
+using NumVals = SizedNumBase<u32>;
+using NumValsPad8 = SizedNumBase<ValsPad8>;
+using NumValsPad32 = SizedNumBase<ValsPad32>;
+
+NumVals numsFF_1 @ 0x001817DC;
+NumValsPad8 nums1 @ 0x00181918;
+NumValsPad32 nums2 @ 0x00181CFA;
+NumValsPad32 nums3[11] @ 0x00181E97;
+NumValsPad32 nums4[11] @ 0x0018204A;
+NumValsPad32 nums5[11] @ 0x001821FD;
+NumValsPad32 nums6[11] @ 0x001823B0;
+NumValsPad32 nums7[11] @ 0x00182563;
+NumValsPad32 nums8[11] @ 0x00182716;
+NumValsPad32 nums9[5] @ 0x001828B4;
+NumValsPad32 nums10[2] @ 0x00183046;
+NumValsPad8 nums11[5] @ 0x001830D6;
+NumValsPad32 nums12 @ 0x00183EE5;
+NumValsPad32 nums13 @ 0x00184183;
+
+NumVals numsFF_2 @ 0x001844D8;
+
+NumValsPad32 nums14 @ 0x0018488D;
+NumValsPad8 nums15 @ 0x001849BD;
+//NumValsPad128 nums16 @ 0x00184AE1;
+NumValsPad32 nums17[12] @ 0x00184F31;
+NumValsPad32 nums18[4] @ 0x001862F8;
 
 
 
@@ -62,10 +98,7 @@ struct SomeStringStructSuffix {
     u32 unknown;
 };
 
-struct NumVals {
-    u32 num;
-    u32 vals[num];
-};
+
 
 SomeStringStructSuffix ssss40 @ 0x001E9B81;
 NumVals ssss40_numVals[2] @ 0x001E9BA7;
