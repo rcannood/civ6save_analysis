@@ -24,30 +24,35 @@ struct Nums__2_Type {
     SizedNumBase<u16>;
 };
 
+struct Nums__2_SuperType<auto pad> {
+	SizedNumBase<u8> u8Arr;
+	u32 num;
+	Nums__2_Type dataArr[num];
+	u8 unconfirmedPostPadding[pad];
+};
+
 using NumVals = SizedNumBase<u32>;
 
 using NumValsPad8 = SizedNumBase<ValsPad8>;
 using NumValsPad32 = SizedNumBase<ValsPad32>;
 
-
+fn after(ref auto val) {
+    return addressof(val) + sizeof(val);
+};
 
 
 NumValsPad32 nums__1[2] @ 0x00000782;
-SizedNumBase<Nums__2_Type> nums__2 @ 0x00001863;
-SizedNumBase<Nums__2_Type> nums__3 @ 0x0000AB38;
-SizedNumBase<Nums__2_Type> nums__4 @ 0x00013E0D;
-SizedNumBase<Nums__2_Type> nums__5 @ 0x0001D0E2;
-SizedNumBase<Nums__2_Type> nums__6 @ 0x000263B7;
-SizedNumBase<Nums__2_Type> nums__7 @ 0x0002F68C;
-SizedNumBase<Nums__2_Type> nums__8 @ 0x00038961;
-SizedNumBase<Nums__2_Type> nums__9 @ 0x00041C42;
-SizedNumBase<Nums__2_Type> nums__10 @ 0x0004AF17;
-SizedNumBase<Nums__2_Type> nums__11 @ 0x000541F8;
-SizedNumBase<Nums__2_Type> nums__12 @ 0x000667BA;
-SizedNumBase<Nums__2_Type> nums__13 @ 0x0006FA9B;
-SizedNumBase<Nums__2_Type> nums__14 @ 0x00078D70;
-SizedNumBase<Nums__2_Type> nums__15 @ 0x00082051;
-SizedNumBase<Nums__2_Type> nums__16 @ 0x0008B332;
+
+
+Nums__2_SuperType<37> nums__2[6] @ 0x00000B13;
+Nums__2_SuperType<49> nums__3[1] @ after(nums__2);
+Nums__2_SuperType<37> nums__4[1] @ after(nums__3);
+Nums__2_SuperType<49> nums__5[4] @ after(nums__4);
+Nums__2_SuperType<37> nums__6[1] @ after(nums__5);
+Nums__2_SuperType<49> nums__7[2] @ after(nums__6);
+Nums__2_SuperType<37> nums__8[1] @ after(nums__7);
+Nums__2_SuperType<37> nums__9[1] @ after(nums__8);
+
 
 NumValsPad32 nums__17[66] @ 0x0009D0D7;
 NumValsPad32 nums__18[66] @ 0x0009E6E2;
