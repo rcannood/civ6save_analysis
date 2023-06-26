@@ -1,14 +1,115 @@
-#include <std/mem.pat>  
 #include <std/string.pat>
-#include <civ6save.hexpat>
-
-// s128 start = std::mem::find_sequence(0x0000000E, 0x0000000F, 0x00000006);
 #pragma pattern_limit 1048576
 
+struct SizedNumBase<DataType> {
+    u32 size;
+	DataType data[size];
+};
 
-s128 start = 0x0010B933;
-u32 numTiles @ start - 4;
-Tile tiles[numTiles] @ start;
+struct ValsPad32 {
+    u32 value;
+    u32 zero;
+};
+
+struct ValsPad8 {
+    u32 value;
+    u8 zero;
+};
+
+struct Nums__2_Type {
+    u32 id;
+    u32 x;
+    u32 y;
+    u32 z;
+    SizedNumBase<u16>;
+};
+
+using NumVals = SizedNumBase<u32>;
+
+using NumValsPad8 = SizedNumBase<ValsPad8>;
+using NumValsPad32 = SizedNumBase<ValsPad32>;
+
+
+
+
+NumValsPad32 nums__1[2] @ 0x00000782;
+SizedNumBase<Nums__2_Type> nums__2 @ 0x00001863;
+SizedNumBase<Nums__2_Type> nums__3 @ 0x0000AB38;
+SizedNumBase<Nums__2_Type> nums__4 @ 0x00013E0D;
+SizedNumBase<Nums__2_Type> nums__5 @ 0x0001D0E2;
+SizedNumBase<Nums__2_Type> nums__6 @ 0x000263B7;
+SizedNumBase<Nums__2_Type> nums__7 @ 0x0002F68C;
+SizedNumBase<Nums__2_Type> nums__8 @ 0x00038961;
+SizedNumBase<Nums__2_Type> nums__9 @ 0x00041C42;
+SizedNumBase<Nums__2_Type> nums__10 @ 0x0004AF17;
+SizedNumBase<Nums__2_Type> nums__11 @ 0x000541F8;
+SizedNumBase<Nums__2_Type> nums__12 @ 0x000667BA;
+SizedNumBase<Nums__2_Type> nums__13 @ 0x0006FA9B;
+SizedNumBase<Nums__2_Type> nums__14 @ 0x00078D70;
+SizedNumBase<Nums__2_Type> nums__15 @ 0x00082051;
+SizedNumBase<Nums__2_Type> nums__16 @ 0x0008B332;
+
+NumValsPad32 nums__17[66] @ 0x0009D0D7;
+NumValsPad32 nums__18[66] @ 0x0009E6E2;
+NumValsPad32 nums__19[66] @ 0x0009FCED;
+NumValsPad32 nums__20[66] @ 0x000A12F8;
+NumValsPad32 nums__21[66] @ 0x000A2903;
+NumValsPad32 nums__22[66] @ 0x000A3F0E;
+NumValsPad32 nums__23[66] @ 0x000A5519;
+NumValsPad32 nums__24[66] @ 0x000A6B24;
+NumValsPad32 nums__25[66] @ 0x000A812F;
+NumValsPad32 nums__26[66] @ 0x000A973A;
+NumValsPad32 nums__27[66] @ 0x000AAD45;
+NumValsPad32 nums__28[66] @ 0x000AC350;
+NumValsPad32 nums__29[66] @ 0x000AD95B;
+NumValsPad32 nums__30[66] @ 0x000AEF66;
+NumValsPad32 nums__31[66] @ 0x000B0571;
+NumValsPad32 nums__32[66] @ 0x000B1B7C;
+NumValsPad32 nums__33[66] @ 0x000B3187;
+NumValsPad32 nums__34[66] @ 0x000B4792;
+NumValsPad32 nums__35[66] @ 0x000B5D9D;
+NumValsPad32 nums__36[66] @ 0x000B73A8;
+NumValsPad32 nums__37[66] @ 0x000B89B3;
+NumValsPad32 nums__38[66] @ 0x000B9FBE;
+NumValsPad32 nums__39[66] @ 0x000BB5C9;
+NumValsPad32 nums__40[66] @ 0x000BCBD4;
+NumValsPad32 nums__41[66] @ 0x000BE1DF;
+NumValsPad32 nums__42[66] @ 0x000BF7EA;
+NumValsPad32 nums__43[66] @ 0x000C0DF5;
+NumValsPad32 nums__44[66] @ 0x000C2400;
+NumValsPad32 nums__45[66] @ 0x000C3A0B;
+NumValsPad32 nums__46[66] @ 0x000C5016;
+NumValsPad32 nums__47[66] @ 0x000C6621;
+NumValsPad32 nums__48[66] @ 0x000C7C2C;
+NumValsPad32 nums__49[66] @ 0x000C9237;
+NumValsPad32 nums__50[66] @ 0x000CA842;
+NumValsPad32 nums__51[66] @ 0x000CBE4D;
+NumValsPad32 nums__52[66] @ 0x000CD458;
+NumValsPad32 nums__53[66] @ 0x000CEA63;
+NumValsPad32 nums__54[66] @ 0x000D006E;
+NumValsPad32 nums__55[66] @ 0x000D1679;
+NumValsPad32 nums__56[66] @ 0x000D2C84;
+NumValsPad32 nums__57[66] @ 0x000D428F;
+NumValsPad32 nums__58[66] @ 0x000D589A;
+NumValsPad32 nums__59[66] @ 0x000D6EA5;
+NumValsPad32 nums__60[66] @ 0x000D84B0;
+NumValsPad32 nums__61[66] @ 0x000D9ABB;
+NumValsPad32 nums__62[66] @ 0x000DB0C6;
+NumValsPad32 nums__63[66] @ 0x000DC6D1;
+NumValsPad32 nums__64[66] @ 0x000DDCDC;
+// a lot more
+NumValsPad32 nums__90[66] @ 0x00105C1B;
+NumValsPad32 nums__91[66] @ 0x00107226;
+
+
+
+
+
+
+
+
+
+
 
 std::string::SizedString<u32> str_00 @ 0x001430C0;
 std::string::SizedString<u32> str_01 @ 0x001430E1;
@@ -43,26 +144,6 @@ std::string::SizedString<u32> str25 @ 0x00180890;
 std::string::SizedString<u32> str26 @ 0x001808F1;
 
 
-
-struct ValsPad32 {
-    u32 value;
-    u32 zero;
-};
-
-struct ValsPad8 {
-    u32 value;
-    u8 zero;
-};
-
-struct SizedNumBase<DataType> {
-    u32 size;
-	DataType data[size];
-};
-
-using NumVals = SizedNumBase<u32>;
-using NumValsPad8 = SizedNumBase<ValsPad8>;
-using NumValsPad32 = SizedNumBase<ValsPad32>;
-
 NumVals numsFF_1 @ 0x001817DC;
 NumValsPad8 nums1 @ 0x00181918;
 NumValsPad32 nums2 @ 0x00181CFA;
@@ -87,7 +168,6 @@ NumValsPad32 nums17[12] @ 0x00184F31;
 NumValsPad32 nums18[4] @ 0x001862F8;
 
 
-
 std::string::SizedString<u32> str30 @ 0x001A2706;
 std::string::SizedString<u32> str31 @ 0x001A28DF;
 
@@ -97,7 +177,6 @@ struct SomeStringStructSuffix {
     u32 args[numArgs];
     u32 unknown;
 };
-
 
 
 SomeStringStructSuffix ssss40 @ 0x001E9B81;
@@ -175,3 +254,5 @@ SomeStringStructSuffix ssss87 @ 0x001EAC43;
 
 
 std::string::SizedString<u32> str100 @ 0x001EE708;
+
+
