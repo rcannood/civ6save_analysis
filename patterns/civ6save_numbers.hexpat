@@ -1,48 +1,10 @@
-#include <std/mem.pat>  
 #include <std/string.pat>
-#include <civ6save.hexpat>
-
-// s128 start = std::mem::find_sequence(0x0000000E, 0x0000000F, 0x00000006);
 #pragma pattern_limit 1048576
 
-
-s128 start = 0x0010B933;
-u32 numTiles @ start - 4;
-Tile tiles[numTiles] @ start;
-
-std::string::SizedString<u32> str_00 @ 0x001430C0;
-std::string::SizedString<u32> str_01 @ 0x001430E1;
-
-std::string::SizedString<u32> str00 @ 0x00155C07;
-std::string::SizedString<u32> str01 @ 0x001565C6;
-std::string::SizedString<u32> str02 @ 0x00156FEB;
-std::string::SizedString<u32> str03 @ 0x0015728F;
-std::string::SizedString<u32> str04 @ 0x00157531;
-std::string::SizedString<u32> str05 @ 0x001577D2;
-std::string::SizedString<u32> str06 @ 0x00157A71;
-std::string::SizedString<u32> str07 @ 0x00157D13;
-std::string::SizedString<u32> str08 @ 0x00157FB5;
-std::string::SizedString<u32> str09 @ 0x00158254;
-std::string::SizedString<u32> str10 @ 0x001584F5;
-std::string::SizedString<u32> str11 @ 0x00158A16;
-std::string::SizedString<u32> str12 @ 0x0015A341;
-std::string::SizedString<u32> str13 @ 0x0015D7FE;
-std::string::SizedString<u32> str14 @ 0x0015F123;
-std::string::SizedString<u32> str15 @ 0x00161BDC;
-std::string::SizedString<u32> str16 @ 0x0016238B;
-std::string::SizedString<u32> str17 @ 0x00165FD5;
-std::string::SizedString<u32> str18 @ 0x001664F4;
-std::string::SizedString<u32> str19 @ 0x0016DB84;
-
-std::string::SizedString<u32> str20 @ 0x001806FE;
-std::string::SizedString<u32> str21 @ 0x00180752;
-std::string::SizedString<u32> str22 @ 0x001807AC;
-std::string::SizedString<u32> str23 @ 0x00180800;
-std::string::SizedString<u32> str24 @ 0x00180838;
-std::string::SizedString<u32> str25 @ 0x00180890;
-std::string::SizedString<u32> str26 @ 0x001808F1;
-
-
+struct SizedNumBase<DataType> {
+    u32 size;
+	DataType data[size];
+};
 
 struct ValsPad32 {
     u32 value;
@@ -54,14 +16,90 @@ struct ValsPad8 {
     u8 zero;
 };
 
-struct SizedNumBase<DataType> {
-    u32 size;
-	DataType data[size];
-};
-
 using NumVals = SizedNumBase<u32>;
+
 using NumValsPad8 = SizedNumBase<ValsPad8>;
 using NumValsPad32 = SizedNumBase<ValsPad32>;
+
+struct Nums__2_Type {
+    u32 id;
+    u32 x;
+    u32 y;
+    u32 z;
+    SizedNumBase<u16>;
+};
+
+struct Nums__2_SuperType {
+	u32 index;
+	u32 x;
+	u32 y;
+	u8 c;
+	u32 z;
+	SizedNumBase<u8> u8Arr;
+	u32 num;
+	Nums__2_Type dataArr[num];
+	// u8 unconfirmedPostPadding[pad];
+	u32 padType;
+	if (padType == 1) {
+		u32 padding1[3];
+	} else if (padType == 2) {
+		u32 padding2[6];
+	}
+	u32 finalPadding;
+};
+
+struct Nums__3_SuperType {
+	u8 unknown1[1352];
+	NumValsPad32 nums__17[66];
+	u8 unknown2[19];
+};
+
+struct StringWithData {
+	std::string::SizedString<u32> string;
+	SizedNumBase<u8> data;
+};
+
+fn after(ref auto val) {
+    return addressof(val) + sizeof(val);
+};
+
+fn printGap(ref auto val1, ref auto val2) {
+    std::print("gap {0} {0:04x}", addressof(val2) - after(val1));
+};
+
+// Start of file
+
+// 1922 bytes not captured
+
+NumValsPad32 nums__1[2] @ 0x00000782;
+u8 unknown_nums__1_2[4] @ after(nums__1);
+u32 num_nums__2 @ after(unknown_nums__1_2);
+Nums__2_SuperType nums__2[num_nums__2] @ after(unknown_nums__1_2) + 4;
+u8 unknown_nums__2_3[16] @ after(nums__2);
+u32 num_nums__3 @ after(unknown_nums__2_3);
+Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums__2_3) + 4;
+
+// 13882 bytes before tiles
+
+// Lots'a tiles
+
+// 2824 bytes after tiles
+
+StringWithData stringWithData[5] @ 0x001430C0; // 174788 bytes
+
+std::string::SizedString<u32> str10 @ 0x0016DB84;
+
+std::string::SizedString<u32> str17 @ 0x0016E625;
+std::string::SizedString<u32> str18 @ 0x00174387;
+std::string::SizedString<u32> str19 @ 0x0017A092;
+std::string::SizedString<u32> str20 @ 0x001806FE;
+std::string::SizedString<u32> str21 @ 0x00180752;
+std::string::SizedString<u32> str22 @ 0x001807AC;
+std::string::SizedString<u32> str23 @ 0x00180800;
+std::string::SizedString<u32> str24 @ 0x00180838;
+std::string::SizedString<u32> str25 @ 0x00180890;
+std::string::SizedString<u32> str26 @ 0x001808F1;
+
 
 NumVals numsFF_1 @ 0x001817DC;
 NumValsPad8 nums1 @ 0x00181918;
@@ -87,7 +125,6 @@ NumValsPad32 nums17[12] @ 0x00184F31;
 NumValsPad32 nums18[4] @ 0x001862F8;
 
 
-
 std::string::SizedString<u32> str30 @ 0x001A2706;
 std::string::SizedString<u32> str31 @ 0x001A28DF;
 
@@ -97,7 +134,6 @@ struct SomeStringStructSuffix {
     u32 args[numArgs];
     u32 unknown;
 };
-
 
 
 SomeStringStructSuffix ssss40 @ 0x001E9B81;
@@ -175,3 +211,5 @@ SomeStringStructSuffix ssss87 @ 0x001EAC43;
 
 
 std::string::SizedString<u32> str100 @ 0x001EE708;
+
+
