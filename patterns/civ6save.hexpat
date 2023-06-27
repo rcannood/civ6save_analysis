@@ -164,6 +164,18 @@ bitfield TileFlags3 {
     bit7 : 1;
 };
 
+struct Buffer {
+    u32 num0;
+    u32 num1;
+    u32 num2;
+    u32 num3;
+    u32 num4;
+
+    //if (num4 > 0) {
+        // u32 buf[5];
+    //}
+};
+
 
 struct Tile {
     u32 travel_regions;
@@ -190,17 +202,28 @@ struct Tile {
     TileFlags2 flags2;
     TileFlags3 flags3;
     u32 tile_overlay_num;
-    
-    if (tile_overlay_num == 1 || tile_overlay_num == 2) {
-        u8 buffer0[23];
-        Flags co2;
 
-        if (tile_overlay_num == 2 || co2.bit0) {
-            u8 buffer1[20];
-        }
-    } else if (tile_overlay_num == 3) {
-        u8 buffer1[64]; // unconfirmed
+    if (tile_overlay_num >= 1) {
+        u32 other_number;
+        Buffer buffer0;
     }
+
+    if (tile_overlay_num >= 2) {
+        Buffer buffer1;
+    }
+
+    if (tile_overlay_num >= 3) {
+        Buffer buffer3;
+    }
+
+    /*
+    if (tile_overlay_num > 0 && tile_overlay_num < 5) {
+        u32 other_number;
+        Buffer buffer0[tile_overlay_num];
+    }
+    */
+    // tile_overlay_num == 1 -> feature or improvement
+    // tile_overlay_num == 2 -> goodie hut + feature or improvement?
 
     if (flags2.is_owned) {
         u64 city;
