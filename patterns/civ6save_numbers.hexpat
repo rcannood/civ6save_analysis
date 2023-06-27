@@ -54,60 +54,44 @@ struct Nums__3_SuperType {
 	u8 unknown2[19];
 };
 
+struct StringWithData {
+	std::string::SizedString<u32> string;
+	SizedNumBase<u8> data;
+};
+
 fn after(ref auto val) {
     return addressof(val) + sizeof(val);
 };
 
+fn printGap(ref auto val1, ref auto val2) {
+    std::print("gap {0} {0:04x}", addressof(val2) - after(val1));
+};
+
+// Start of file
+
+// 1922 bytes not captured
 
 NumValsPad32 nums__1[2] @ 0x00000782;
+u8 unknown_nums__1_2[4] @ after(nums__1);
+u32 num_nums__2 @ after(unknown_nums__1_2);
+Nums__2_SuperType nums__2[num_nums__2] @ after(unknown_nums__1_2) + 4;
+u8 unknown_nums__2_3[16] @ after(nums__2);
+u32 num_nums__3 @ after(unknown_nums__2_3);
+Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums__2_3) + 4;
 
-u32 num_nums__2 @ 0x00000B02 - 4;
-Nums__2_SuperType nums__2[num_nums__2] @ 0x00000B02;
+// 13882 bytes before tiles
 
-u8 unknown_nums_2_3[16] @ after(nums__2);
+// Lots'a tiles
 
-u32 num_nums__3 @ after(unknown_nums_2_3);
-Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums_2_3) + 4;
+// 2824 bytes after tiles
 
+StringWithData stringWithData[5] @ 0x001430C0; // 174788 bytes
 
+std::string::SizedString<u32> str10 @ 0x0016DB84;
 
-
-
-
-
-
-
-std::string::SizedString<u32> str_00 @ 0x001430C0;
-std::string::SizedString<u32> str_01 @ 0x001430E1;
-
-NumValsPad32 str_01_nums1 @ 0x0015662F;
-NumValsPad32 str_01_nums2 @ 0x001568B0;
-NumValsPad32 str_01_nums3 @ 0x00156B31;
-NumValsPad32 str_01_nums4 @ 0x00156DB2;
-
-std::string::SizedString<u32> str00 @ 0x00155C07;
-NumValsPad32 str00_nums @ 0x00157056;
-
-std::string::SizedString<u32> str01 @ 0x001565C6;
-std::string::SizedString<u32> str02 @ 0x00156FEB;
-std::string::SizedString<u32> str03 @ 0x0015728F;
-std::string::SizedString<u32> str04 @ 0x00157531;
-std::string::SizedString<u32> str05 @ 0x001577D2;
-std::string::SizedString<u32> str06 @ 0x00157A71;
-std::string::SizedString<u32> str07 @ 0x00157D13;
-std::string::SizedString<u32> str08 @ 0x00157FB5;
-std::string::SizedString<u32> str09 @ 0x00158254;
-std::string::SizedString<u32> str10 @ 0x001584F5;
-std::string::SizedString<u32> str11 @ 0x00158A16;
-std::string::SizedString<u32> str12 @ 0x0015A341;
-std::string::SizedString<u32> str13 @ 0x0015D7FE;
-std::string::SizedString<u32> str14 @ 0x0015F123;
-std::string::SizedString<u32> str15 @ 0x00161BDC;
-std::string::SizedString<u32> str16 @ 0x0016238B;
-std::string::SizedString<u32> str17 @ 0x00165FD5;
-std::string::SizedString<u32> str18 @ 0x001664F4;
-std::string::SizedString<u32> str19 @ 0x0016DB84;
-
+std::string::SizedString<u32> str17 @ 0x0016E625;
+std::string::SizedString<u32> str18 @ 0x00174387;
+std::string::SizedString<u32> str19 @ 0x0017A092;
 std::string::SizedString<u32> str20 @ 0x001806FE;
 std::string::SizedString<u32> str21 @ 0x00180752;
 std::string::SizedString<u32> str22 @ 0x001807AC;
