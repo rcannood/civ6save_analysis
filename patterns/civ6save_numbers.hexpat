@@ -16,6 +16,11 @@ struct ValsPad8 {
     u8 zero;
 };
 
+using NumVals = SizedNumBase<u32>;
+
+using NumValsPad8 = SizedNumBase<ValsPad8>;
+using NumValsPad32 = SizedNumBase<ValsPad32>;
+
 struct Nums__2_Type {
     u32 id;
     u32 x;
@@ -24,17 +29,30 @@ struct Nums__2_Type {
     SizedNumBase<u16>;
 };
 
-struct Nums__2_SuperType<auto pad> {
+struct Nums__2_SuperType {
+	u32 index;
+	u32 x;
+	u32 y;
+	u8 c;
+	u32 z;
 	SizedNumBase<u8> u8Arr;
 	u32 num;
 	Nums__2_Type dataArr[num];
-	u8 unconfirmedPostPadding[pad];
+	// u8 unconfirmedPostPadding[pad];
+	u32 padType;
+	if (padType == 1) {
+		u32 padding1[3];
+	} else if (padType == 2) {
+		u32 padding2[6];
+	}
+	u32 finalPadding;
 };
 
-using NumVals = SizedNumBase<u32>;
-
-using NumValsPad8 = SizedNumBase<ValsPad8>;
-using NumValsPad32 = SizedNumBase<ValsPad32>;
+struct Nums__3_SuperType {
+	u8 unknown1[1352];
+	NumValsPad32 nums__17[66];
+	u8 unknown2[19];
+};
 
 fn after(ref auto val) {
     return addressof(val) + sizeof(val);
@@ -43,70 +61,13 @@ fn after(ref auto val) {
 
 NumValsPad32 nums__1[2] @ 0x00000782;
 
+u32 num_nums__2 @ 0x00000B02 - 4;
+Nums__2_SuperType nums__2[num_nums__2] @ 0x00000B02;
 
-Nums__2_SuperType<37> nums__2[6] @ 0x00000B13;
-Nums__2_SuperType<49> nums__3[1] @ after(nums__2);
-Nums__2_SuperType<37> nums__4[1] @ after(nums__3);
-Nums__2_SuperType<49> nums__5[4] @ after(nums__4);
-Nums__2_SuperType<37> nums__6[1] @ after(nums__5);
-Nums__2_SuperType<49> nums__7[2] @ after(nums__6);
-Nums__2_SuperType<37> nums__8[1] @ after(nums__7);
-Nums__2_SuperType<37> nums__9[1] @ after(nums__8);
+u8 unknown_nums_2_3[16] @ after(nums__2);
 
-
-NumValsPad32 nums__17[66] @ 0x0009D0D7;
-NumValsPad32 nums__18[66] @ 0x0009E6E2;
-NumValsPad32 nums__19[66] @ 0x0009FCED;
-NumValsPad32 nums__20[66] @ 0x000A12F8;
-NumValsPad32 nums__21[66] @ 0x000A2903;
-NumValsPad32 nums__22[66] @ 0x000A3F0E;
-NumValsPad32 nums__23[66] @ 0x000A5519;
-NumValsPad32 nums__24[66] @ 0x000A6B24;
-NumValsPad32 nums__25[66] @ 0x000A812F;
-NumValsPad32 nums__26[66] @ 0x000A973A;
-NumValsPad32 nums__27[66] @ 0x000AAD45;
-NumValsPad32 nums__28[66] @ 0x000AC350;
-NumValsPad32 nums__29[66] @ 0x000AD95B;
-NumValsPad32 nums__30[66] @ 0x000AEF66;
-NumValsPad32 nums__31[66] @ 0x000B0571;
-NumValsPad32 nums__32[66] @ 0x000B1B7C;
-NumValsPad32 nums__33[66] @ 0x000B3187;
-NumValsPad32 nums__34[66] @ 0x000B4792;
-NumValsPad32 nums__35[66] @ 0x000B5D9D;
-NumValsPad32 nums__36[66] @ 0x000B73A8;
-NumValsPad32 nums__37[66] @ 0x000B89B3;
-NumValsPad32 nums__38[66] @ 0x000B9FBE;
-NumValsPad32 nums__39[66] @ 0x000BB5C9;
-NumValsPad32 nums__40[66] @ 0x000BCBD4;
-NumValsPad32 nums__41[66] @ 0x000BE1DF;
-NumValsPad32 nums__42[66] @ 0x000BF7EA;
-NumValsPad32 nums__43[66] @ 0x000C0DF5;
-NumValsPad32 nums__44[66] @ 0x000C2400;
-NumValsPad32 nums__45[66] @ 0x000C3A0B;
-NumValsPad32 nums__46[66] @ 0x000C5016;
-NumValsPad32 nums__47[66] @ 0x000C6621;
-NumValsPad32 nums__48[66] @ 0x000C7C2C;
-NumValsPad32 nums__49[66] @ 0x000C9237;
-NumValsPad32 nums__50[66] @ 0x000CA842;
-NumValsPad32 nums__51[66] @ 0x000CBE4D;
-NumValsPad32 nums__52[66] @ 0x000CD458;
-NumValsPad32 nums__53[66] @ 0x000CEA63;
-NumValsPad32 nums__54[66] @ 0x000D006E;
-NumValsPad32 nums__55[66] @ 0x000D1679;
-NumValsPad32 nums__56[66] @ 0x000D2C84;
-NumValsPad32 nums__57[66] @ 0x000D428F;
-NumValsPad32 nums__58[66] @ 0x000D589A;
-NumValsPad32 nums__59[66] @ 0x000D6EA5;
-NumValsPad32 nums__60[66] @ 0x000D84B0;
-NumValsPad32 nums__61[66] @ 0x000D9ABB;
-NumValsPad32 nums__62[66] @ 0x000DB0C6;
-NumValsPad32 nums__63[66] @ 0x000DC6D1;
-NumValsPad32 nums__64[66] @ 0x000DDCDC;
-// a lot more
-NumValsPad32 nums__90[66] @ 0x00105C1B;
-NumValsPad32 nums__91[66] @ 0x00107226;
-
-
+u32 num_nums__3 @ after(unknown_nums_2_3);
+Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums_2_3) + 4;
 
 
 
@@ -119,7 +80,14 @@ NumValsPad32 nums__91[66] @ 0x00107226;
 std::string::SizedString<u32> str_00 @ 0x001430C0;
 std::string::SizedString<u32> str_01 @ 0x001430E1;
 
+NumValsPad32 str_01_nums1 @ 0x0015662F;
+NumValsPad32 str_01_nums2 @ 0x001568B0;
+NumValsPad32 str_01_nums3 @ 0x00156B31;
+NumValsPad32 str_01_nums4 @ 0x00156DB2;
+
 std::string::SizedString<u32> str00 @ 0x00155C07;
+NumValsPad32 str00_nums @ 0x00157056;
+
 std::string::SizedString<u32> str01 @ 0x001565C6;
 std::string::SizedString<u32> str02 @ 0x00156FEB;
 std::string::SizedString<u32> str03 @ 0x0015728F;
