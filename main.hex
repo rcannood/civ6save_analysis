@@ -7,3 +7,19 @@ s128 start = std::mem::find_sequence(0, 0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0
 
 u32 numTiles @ start - 4;
 Tile tiles[numTiles] @ start;
+
+
+// These are structures in the start of the save file, before 'tiles'
+char uuid[] @ 0x0000002C;
+u32 player_flags[64] @ 0x00000081; // players, city states & barbarians
+u32 incrementals[64] @ 0x00000181;
+
+NumValsPad32 nums__1[2] @ 0x00000782;
+
+u8 unknown_nums__1_2[4] @ after(nums__1);
+u32 num_nums__2 @ after(unknown_nums__1_2);
+Nums__2_SuperType nums__2[num_nums__2] @ after(unknown_nums__1_2) + 4;
+u8 unknown_nums__2_3[16] @ after(nums__2);
+u32 num_nums__3 @ after(unknown_nums__2_3);
+Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums__2_3) + 4;
+
