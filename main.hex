@@ -2,9 +2,8 @@
 #include <civ6save.hexpat>
 #include <civ6save_numbers.hexpat>
 
-// s128 start = std::mem::find_sequence(0x0000000E, 0x0000000F, 0x00000006);
+// start looking from 0 for bytes `0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0, 0`.
+s128 start = std::mem::find_sequence(0, 0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0, 0) + 16;
 
-s128 start = 0x0010B933;
 u32 numTiles @ start - 4;
 Tile tiles[numTiles] @ start;
-

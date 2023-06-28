@@ -1,0 +1,11 @@
+#include <std/mem.pat>  
+#include <civ6save.hexpat>
+
+#pragma pattern_limit 1048576
+
+// doesn't seem to be working here
+// s128 start = std::mem::find_sequence(0, 0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0, 0) + 12;
+s128 start = std::mem::find_sequence(0, 0x4C, 0x0D, 0, 0, 0, 0, 0x01, 0) + 4;
+
+u32 numTiles @ start - 4;
+Tile tiles[numTiles] @ start;
