@@ -1,5 +1,13 @@
 #include <enums.hexpat>
 
+/*
+#define Terrain s32
+#define Feature s32
+#define Improvement s32
+#define Continent s32
+#define Resource s32
+*/
+
 bitfield Flags {
     bit0 : 1;
     bit1 : 1;
@@ -15,7 +23,7 @@ bitfield TileFlags1 {
     is_pillaged : 1;
     road_pillaged : 1; // ??
     has_road : 1;
-    is_capital_or_citystate : 1;
+    is_capital : 1;
     bit4 : 1;
     river_sw : 1;
     river_e : 1;
@@ -52,8 +60,11 @@ struct Buffer {
     u32 num4;
 
     if (num4 == 1) {
-        u32 buf[5];
-        // Buffer recurse;
+        u32 num5;
+        u32 num6;
+        u32 num7;
+        u32 num8;
+        u32 num9;
     }
 };
 
@@ -62,14 +73,14 @@ struct Tile {
     u32 travel_regions;
     u32 connected_regions;
     s32 landmass;
-    TerrainType terrain;
-    FeatureType feature;
+    Terrain terrain;
+    Feature feature;
     u16 natural_wonder_order;
-    ContinentType continent;
+    Continent continent;
     u8 number_of_units;
-    ResourceType resource;
-    u16 resource_boolean;
-    ImprovementType improvement;
+    Resource resource;
+    u16 resource_amount;
+    Improvement improvement;
     s8 improvement_owner;
     s16 road;
     s16 appeal;
@@ -103,7 +114,7 @@ struct Tile {
         Buffer buffer0[tile_overlay_num];
     }
     */
-
+    
     // tile_overlay_num == 1 -> feature or improvement
     // tile_overlay_num == 2 -> goodie hut + feature or improvement?
 
@@ -113,4 +124,4 @@ struct Tile {
         u8 owner;
         u32 world_wonder;
     }
-};
+} [[single_color]];
