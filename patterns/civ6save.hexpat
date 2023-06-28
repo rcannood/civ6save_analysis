@@ -171,9 +171,10 @@ struct Buffer {
     u32 num3;
     u32 num4;
 
-    //if (num4 > 0) {
-        // u32 buf[5];
-    //}
+    if (num4 == 1) {
+        u32 buf[5];
+        // Buffer recurse;
+    }
 };
 
 
@@ -213,7 +214,7 @@ struct Tile {
     }
 
     if (tile_overlay_num >= 3) {
-        Buffer buffer3;
+        Buffer buffer2;
     }
 
     /*
@@ -222,6 +223,7 @@ struct Tile {
         Buffer buffer0[tile_overlay_num];
     }
     */
+
     // tile_overlay_num == 1 -> feature or improvement
     // tile_overlay_num == 2 -> goodie hut + feature or improvement?
 
