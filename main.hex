@@ -23,3 +23,23 @@ u8 unknown_nums__2_3[16] @ after(nums__2);
 u32 num_nums__3 @ after(unknown_nums__2_3);
 Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums__2_3) + 4;
 
+u32 nums__4a[1] @ after(nums__3);
+u32 nums__4b[1] @ after(nums__4a);
+u32 nums__4c[nums__4b[0] + 2] @ after(nums__4b); // numbers are close to nums__4a
+u32 nums__4d[3] @ after(nums__4c); // 3x fixed numbers between 4 saves 
+u32 nums__4d2[1] @ after(nums__4d); // + 1 extra number, similar to unknown_nums__2_3
+
+u32 nums__5[1] @ after(nums__4d2);
+u8 nums__5b[nums__5[0]*25] @ after(nums__5);
+
+u32 nums__6a[2] @ after(nums__5b);
+u32 nums__6b[nums__6a[1] + 2] @ after(nums__6a);
+
+u32 nums__7[3+1] @ after(nums__6b);
+
+struct Nums__8_Type{
+    u8 header[21];
+    NumVals;
+};
+u32 num_nums__8[1] @ after(nums__7);
+Nums__8_Type nums__8[num_nums__8[0]] @ after(num_nums__8);
