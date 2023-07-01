@@ -52,46 +52,19 @@ u32 nums__11[5] @ after(nums__10b);
 u32 nums__11_header0[1] @ after(nums__11); // expected to be '1'
 
 struct Nums__12_Type{
-    // 01
-    u8 header1[5]; // last byte expected to be 1
-    if (header1[4] != 1) {
-        // this really is a dirty hack! :(
-        // somehow the previous entry should have taken 12 bytes more
-        u32 kludge[3];
-        std::print("Triggered Nums__12 kludge at 0x{:08x}", addressof(kludge));
-    }
-    u32 start1; // expected to be '2'
+    u8 header1[5];
+    u32 start1;
     u32 values1[4];
     u32 values2_num;
     u32 values2[values2_num * 2];
-    u32 end1a;
-
-    if (end1a == 0) {
-        u32 values3;
-        u32 end1b; // expected to be '1'
-    } else if (end1a == 2 ) {
-        u16 values2[4];
-        if (values2[3] != 0) {
-            u32 value3;
-        }
-        u32 end1c; // expected to be '1'
-    }
-
+    u32 values3_num;
+    u32 values3[values3_num + 2];
 };
 
 Nums__12_Type nums__12[nums__11[3]] @ after(nums__11_header0);
 
-u16 nums__12_pre_check @ after(nums__11) - 8;
-u16 nums__12_post_check @ after(nums__12) - 6;
-s32 nums__13_offset = -4;
-if (nums__12_pre_check != nums__12_post_check) {
-    nums__13_offset = 8;
-    std::print("fixing termination issue in nums__12");
-}
-
-u32 num_nums__13[1] @ after(nums__12) + nums__13_offset;
+u32 num_nums__13[1] @ after(nums__12) - 4;
 u32 nums__13[num_nums__13[0] + 2] @ after(num_nums__13);
-
 
 u32 nums__14[1] @ after(nums__13);
 u32 nums__14b[nums__14[0] * 5] @ after(nums__14);
