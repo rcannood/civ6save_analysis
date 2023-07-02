@@ -124,4 +124,4 @@ struct Tile {
         u8 owner;
         u32 world_wonder;
     }
-} [[single_color]];
+} ;

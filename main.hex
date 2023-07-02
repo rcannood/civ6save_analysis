@@ -1,25 +1,33 @@
-#include <std/mem.pat>
 #include <civ6save.hexpat>
-#include <civ6save_numbers.hexpat>
+#include <civ6save_pre_tiles.hexpat>
+#include <std/core.pat>
 
-// start looking from 0 for bytes `0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0, 0`.
-s128 start = std::mem::find_sequence(0, 0x0E, 0, 0, 0, 0x0F, 0, 0, 0, 0x06, 0, 0, 0) + 16;
+#pragma loop_limit 5000
 
-u32 numTiles @ start - 4;
-Tile tiles[numTiles] @ start;
+u32 numTiles @ start_tiles;
+Tile tiles[numTiles] @ start_tiles + 4;
 
 
-// These are structures in the start of the save file, before 'tiles'
-char uuid[] @ 0x0000002C;
-u32 player_flags[64] @ 0x00000081; // players, city states & barbarians
-u32 incrementals[64] @ 0x00000181;
+u32 num_colors = 9;
+u32 color[num_colors];
+color[0] = 0x0000FF;
+color[1] = 0x00FF00;
+color[2] = 0xFF0000;
+color[3] = 0x7F007F;
+color[4] = 0x007F7F;
+color[5] = 0x7F7F00;
+color[6] = 0x3F3F7F;
+color[7] = 0x3F7F3F;
+color[8] = 0x7F3F3F;
 
-NumValsPad32 nums__1[2] @ 0x00000782;
-
-u8 unknown_nums__1_2[4] @ after(nums__1);
-u32 num_nums__2 @ after(unknown_nums__1_2);
-Nums__2_SuperType nums__2[num_nums__2] @ after(unknown_nums__1_2) + 4;
-u8 unknown_nums__2_3[16] @ after(nums__2);
-u32 num_nums__3 @ after(unknown_nums__2_3);
-Nums__3_SuperType nums__3[num_nums__3] @ after(unknown_nums__2_3) + 4;
-
+u32 i = 0;
+while (i < numTiles) {
+    if(!std::core::is_valid_enum(tiles[i].terrain)) {
+        std::core::set_pattern_color(tiles[i], 0xFFFFFF);
+    } else {
+        std::core::set_pattern_color(tiles[i], color[i % num_colors]);
+    }
+    str name = builtin::std::format("{}: {}", i, tiles[i].terrain);
+    std::core::set_display_name(tiles[i], name);
+    i = i + 1;
+}
