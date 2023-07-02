@@ -38,7 +38,7 @@ bitfield TileFlags2 {
     bit4 : 1;
     is_impassable : 1;
     is_owned : 1;
-    river_se : 1;
+    bit7 : 1;
 };
 
 bitfield TileFlags3 {
