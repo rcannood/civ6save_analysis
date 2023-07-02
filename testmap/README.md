@@ -1,6 +1,9 @@
 # TestMap
 
-A map for decyphering the Civ6Save format.
+A map for decyphering the Civ6Save format. Location of Civ6 files:
+
+* Civ6Save: `$STEAM_LIBRARY/steamapps/compatdata/289070/pfx/drive_c/users/steamuser/Documents/My Games/Sid Meier's Civilization VI/Saves/Single`.
+* Civ6Map: `$STEAM_LIBRARY/steamapps/compatdata/289070/pfx/drive_c/users/steamuser/Documents/My Games/Sid Meier's Civilization VI/Saves/WorldBuilder`.
 
 ![](TestMap_Screenshot.jpg)
 
