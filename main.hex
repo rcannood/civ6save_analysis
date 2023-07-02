@@ -1,6 +1,33 @@
 #include <civ6save.hexpat>
 #include <civ6save_pre_tiles.hexpat>
+#include <std/core.pat>
+
+#pragma loop_limit 5000
 
 u32 numTiles @ start_tiles;
 Tile tiles[numTiles] @ start_tiles + 4;
 
+
+u32 num_colors = 9;
+u32 color[num_colors];
+color[0] = 0x0000FF;
+color[1] = 0x00FF00;
+color[2] = 0xFF0000;
+color[3] = 0x7F007F;
+color[4] = 0x007F7F;
+color[5] = 0x7F7F00;
+color[6] = 0x3F3F7F;
+color[7] = 0x3F7F3F;
+color[8] = 0x7F3F3F;
+
+u32 i = 0;
+while (i < numTiles) {
+    if(!std::core::is_valid_enum(tiles[i].terrain)) {
+        std::core::set_pattern_color(tiles[i], 0xFFFFFF);
+    } else {
+        std::core::set_pattern_color(tiles[i], color[i % num_colors]);
+    }
+    str name = builtin::std::format("{}: {}", i, tiles[i].terrain);
+    std::core::set_display_name(tiles[i], name);
+    i = i + 1;
+}
