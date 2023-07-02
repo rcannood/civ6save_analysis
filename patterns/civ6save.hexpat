@@ -53,19 +53,51 @@ bitfield TileFlags3 {
 };
 
 struct Buffer {
+    // buffer0.num0 looks like it has value :
+    // '3651357813' for barb encampments and tribal villages
+    // '798339845' for tiles where there are or used to be forests and marshes ?
     u32 num0;
     u32 num1;
     u32 num2;
     u32 num3;
     u32 num4;
+};
 
-    if (num4 == 1) {
-        u32 num5;
-        u32 num6;
-        u32 num7;
-        u32 num8;
-        u32 num9;
+
+fn is_terrain(u128 addr) {
+    try {
+        Terrain ter @ addr;
+        return ter == Terrain::Grassland ||
+          ter == Terrain::GrasslandHill ||
+          ter == Terrain::GrasslandMountain ||
+          ter == Terrain::Plains ||
+          ter == Terrain::PlainsHill ||
+          ter == Terrain::PlainsMountain ||
+          ter == Terrain::Desert ||
+          ter == Terrain::DesertHill ||
+          ter == Terrain::DesertMountain ||
+          ter == Terrain::Tundra ||
+          ter == Terrain::TundraHill ||
+          ter == Terrain::TundraMountain ||
+          ter == Terrain::Snow ||
+          ter == Terrain::SnowHill ||
+          ter == Terrain::SnowMountain ||
+          ter == Terrain::Coast ||
+          ter == Terrain::Ocean;
+        // return std::core::is_valid_enum(ter);
+        // return true;
+    } catch {
+        return false;
     }
+};
+
+fn find_next_tile(s128 start) {
+    for (u32 i = 1, i < 5, i = i + 1) {
+        if (is_terrain(start + 20 * i)) {
+            return i;
+        }
+    }
+    return 0;
 };
 
 
@@ -97,26 +129,17 @@ struct Tile {
 
     if (tile_overlay_num >= 1) {
         u32 other_number;
-        Buffer buffer0;
-    }
 
-    if (tile_overlay_num >= 2) {
-        Buffer buffer1;
-    }
+        u128 start = $ + (flags2.is_owned ? 17 : 0) + 12;
+        
+        u32 num_buffers = find_next_tile(start);
 
-    if (tile_overlay_num >= 3) {
-        Buffer buffer2;
-    }
+        if (num_buffers != tile_overlay_num) {
+            std::print("at addr: 0x{0:08x} num_buffers != tile_overlay_num, num_buffers: {1}, tile_overlay_num: {2}", $, num_buffers, tile_overlay_num);
+        }
 
-    /*
-    if (tile_overlay_num > 0 && tile_overlay_num < 5) {
-        u32 other_number;
-        Buffer buffer0[tile_overlay_num];
+        Buffer buffers[num_buffers];
     }
-    */
-    
-    // tile_overlay_num == 1 -> feature or improvement
-    // tile_overlay_num == 2 -> goodie hut + feature or improvement?
 
     if (flags2.is_owned) {
         u64 city;
