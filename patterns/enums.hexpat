@@ -1,3 +1,5 @@
+#pragma once
+
 enum Terrain : s32 {
     Grassland = 0x83E7C630,
     GrasslandHill = 0x6E9D0C70,
@@ -231,5 +233,14 @@ enum Resource : s32 {
     Uranium = 0x13CB7793,
     Whales = 0x8625D52A,
     Wheat = 0x2E1008E0,
-    Wine = 0x415E16CC
+    Wine = 0x415E16CC,
+    
+    // from Nums__1
+    Unknown1 = 0x5AFFA2BE,
+    Unknown2 = 0x2428E5D5,
+    Unknown3 = 0x89CFF0F5,
+    Unknown4 = 0xA631F457,
+    Unknown5 = 0x339D9FF6,
+    Unknown6 = 0x1A8C62F2,
+    Unknown7 = 0x15E4F3F7,
 };
