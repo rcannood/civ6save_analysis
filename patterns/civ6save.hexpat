@@ -57,7 +57,8 @@ enum OverlayType : u32 {
     CityState = 0xD77B5FDB,
     Improvement = 3651357813,
     Feature = 0x2F95B305,
-    Rotation = 0x4344ACEF
+    Rotation = 0x4344ACEF,
+    SkiResort = 0xF9FA9BC3 // only ski resorts?
 };
 
 struct Overlay {
@@ -84,13 +85,25 @@ struct Overlay {
         u32 improvement_num1;
         u32 improvement_num2;
         u32 improvement_num3;
+
+        if (improvement_num3 == 1) {
+            OverlayType overlay_type2;
+            u32 improvement_num4;
+            u32 improvement_num5;
+            u32 improvement_num6;
+            u32 improvement_num7;
+
+            if (!std::core::is_valid_enum(overlay_type2)) {
+                std::print("WARNING: improvement unrecognized buffer type 0x{0:08x} at 0x{1:08x}", u32(overlay_type2), $);
+            }
+        }
     } else if (overlay_type == OverlayType::Feature) {
         u32 feature_num0;
         u32 feature_num1;
         u32 feature_num2;
-        u32 is_rotated;
+        u32 feature_is_rotated;
 
-        if (is_rotated == 1) {
+        if (feature_is_rotated == 1) {
             OverlayType overlay_type2; 
             u32 rotation_num0;
             u32 rotation_num1;
@@ -98,7 +111,7 @@ struct Overlay {
             u32 rotation_direction;
 
             if (!std::core::is_valid_enum(overlay_type2)) {
-                std::print("WARNING: unrecognized buffer type 0x{0:08x}", u32(overlay_type2));
+                std::print("WARNING: unrecognized buffer type 0x{0:08x} at 0x{1:08x}", u32(overlay_type2), $);
             }
         }
     }
