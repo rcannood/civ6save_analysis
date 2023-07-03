@@ -5,6 +5,10 @@
 // u32 player_flags[64] @ 0x00000081; // players, city states & barbarians
 // u32 incrementals[64] @ 0x00000181;
 
+using u8x25 = std::Array<u8, 25>;
+using u32x5 = std::Array<u32, 5>;
+using u32x3 = std::Array<u32, 3>;
+
 struct Nums__2_SubType {
     u32 id;
     u32 x;
@@ -21,13 +25,8 @@ struct Nums__2_Type {
 	u32 z;
 	SizedNumBase<u8> u8Arr;
 	SizedNumBase<Nums__2_SubType> dataArr;
-	u32 padType;
-	if (padType == 1) {
-		u32 padding1[3];
-	} else if (padType == 2) {
-		u32 padding2[6];
-	}
-	u32 finalPadding;
+	SizedNumBase<u32x3> padding1;
+	SizedNumBase<u32x3> padding2;
 };
 
 struct Nums__3_Type {
@@ -56,9 +55,6 @@ struct Nums__17_Type{
     u16 id_value;
     NumVals16 values;
 };
-
-using u8x25 = std::Array<u8, 25>;
-using u32x5 = std::Array<u32, 5>;
 
 struct PreTiles_Type {
 	NumValsPad32 nums__1[2];
