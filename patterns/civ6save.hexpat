@@ -56,10 +56,61 @@ enum OverlayType : u32 {
     City = 0x4C608A17,
     CityState = 0xD77B5FDB,
     Improvement = 3651357813,
-    Feature = 0x2F95B305,
-    Rotation = 0x4344ACEF,
-    SkiResort = 0xF9FA9BC3 // only ski resorts?
+    Feature = 0x2F95B305
 };
+
+struct CityOverlay {
+    u32 city_num0;
+    u32 city_num1;
+    u32 city_num2;
+    u32 city_num3;
+};
+
+struct CityStateOverlay {
+    u32 citystate_num0;
+    u32 citystate_num1;
+    u32 citystate_num2;
+    u32 citystate_num3;
+};
+
+struct ImprovementOverlay {
+    u32 improvement_num0;
+    u32 improvement_num1;
+    u32 improvement_num2;
+    u32 improvement_num3;
+
+    if (improvement_num3 == 1) {
+        u32 improvement_subtype;
+
+        if (improvement_subtype != 0xF9FA9BC3) {
+            std::print("WARNING: unrecognized improvement subtype 0x{0:08x} at 0x{1:08x}", u32(improvement_subtype), $);
+        }
+        u32 improvement_num4;
+        u32 improvement_num5;
+        u32 improvement_num6;
+        u32 improvement_num7;
+    }
+};
+
+struct FeatureOverlay {
+    u32 feature_num0;
+    u32 feature_num1;
+    u32 feature_num2;
+    u32 feature_is_rotated;
+
+    if (feature_is_rotated == 1) {
+        u32 rotation_type;
+
+        if (rotation_type != 0x4344ACEF) {
+            std::print("WARNING: unrecognized rotation type 0x{0:08x} at 0x{1:08x}", u32(rotation_type), $);
+        }
+        u32 rotation_num0;
+        u32 rotation_num1;
+        u32 rotation_num2;
+        u32 rotation_direction;
+    }
+};
+
 
 struct Overlay {
     // first 4 bytes looks like it defines the type of buffer
@@ -70,73 +121,21 @@ struct Overlay {
     // 'EF AC 44 43' or '1128574191' for rotated tiles
     OverlayType overlay_type;
 
-    if (overlay_type == OverlayType::City) {
-        u32 city_num0;
-        u32 city_num1;
-        u32 city_num2;
-        u32 city_num3;
-    } else if (overlay_type == OverlayType::CityState) {
-        u32 citystate_num0;
-        u32 citystate_num1;
-        u32 citystate_num2;
-        u32 citystate_num3;
-    } else if (overlay_type == OverlayType::Improvement) {
-        u32 improvement_num0;
-        u32 improvement_num1;
-        u32 improvement_num2;
-        u32 improvement_num3;
-
-        if (improvement_num3 == 1) {
-            OverlayType overlay_type2;
-            u32 improvement_num4;
-            u32 improvement_num5;
-            u32 improvement_num6;
-            u32 improvement_num7;
-
-            if (!std::core::is_valid_enum(overlay_type2)) {
-                std::print("WARNING: improvement unrecognized buffer type 0x{0:08x} at 0x{1:08x}", u32(overlay_type2), $);
-            }
-        }
-    } else if (overlay_type == OverlayType::Feature) {
-        u32 feature_num0;
-        u32 feature_num1;
-        u32 feature_num2;
-        u32 feature_is_rotated;
-
-        if (feature_is_rotated == 1) {
-            OverlayType overlay_type2; 
-            u32 rotation_num0;
-            u32 rotation_num1;
-            u32 rotation_num2;
-            u32 rotation_direction;
-
-            if (!std::core::is_valid_enum(overlay_type2)) {
-                std::print("WARNING: unrecognized buffer type 0x{0:08x} at 0x{1:08x}", u32(overlay_type2), $);
-            }
-        }
-    }
-
     if (!std::core::is_valid_enum(overlay_type)) {
         std::print("WARNING: unrecognized buffer type 0x{0:08x}", u32(overlay_type));
     }
-};
 
-
-/*
- * Detect the number of 20-byte buffers by looking for the terrain
- * of the next tile.
- */
-fn detect_num_buffers(s128 start, u32 tile_overlay_num) {
-    for (u32 i = 1, i < 5, i = i + 1) {
-        Terrain ter @ start + 20 * i;
-        if (std::core::is_valid_enum(ter)) {
-            return i;
-        }
+    if (overlay_type == OverlayType::City) {
+        CityOverlay city_overlay;
+    } else if (overlay_type == OverlayType::CityState) {
+        CityStateOverlay citystate_overlay;
+    } else if (overlay_type == OverlayType::Improvement) {
+        ImprovementOverlay improvement_overlay;
+    } else if (overlay_type == OverlayType::Feature) {
+        FeatureOverlay feature_overlay;
     }
-    // if no feature tile is found, we're probably at the end of the 
-    // map, and we can probably just use the tile_overlay_num
-    return tile_overlay_num;
 };
+
 
 
 struct Tile {
@@ -169,22 +168,6 @@ struct Tile {
         u32 other_number;
 
         Overlay overlay[tile_overlay_num];
-
-        /*
-        u128 start = $ + (flags2.is_owned ? 17 : 0) + 12;
-        
-        u32 num_buffers = detect_num_buffers(start, tile_overlay_num);
-
-        if (num_buffers != tile_overlay_num) {
-            std::print("WARNING: tile {0} (0x{1:08x}) num_buffers ({2}) != tile_overlay_num ({3})", std::core::array_index(), addressof(travel_regions), num_buffers, tile_overlay_num);
-        }
-
-        Buffer buffers[num_buffers];
-
-        if (buffers[0].num4 == 1 && num_buffers == tile_overlay_num) {
-            std::print("WARNING: tile {0} (0x{1:08x}) buffer.num4 == 1 but num_buffers ({2}) == tile_overlay_num ({3})", std::core::array_index(), addressof(travel_regions), num_buffers, tile_overlay_num);
-        }
-        */
     }
 
     if (flags2.is_owned) {
