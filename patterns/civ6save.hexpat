@@ -64,18 +64,14 @@ struct Buffer {
 };
 
 
-fn is_terrain(u128 addr) {
-    try {
-        Terrain ter @ addr;
-        return std::core::is_valid_enum(ter);
-    } catch {
-        return false;
-    }
-};
-
-fn find_next_tile(s128 start, u32 tile_overlay_num) {
+/*
+ * Detect the number of 20-byte buffers by looking for the terrain
+ * of the next tile.
+ */
+fn detect_num_buffers(s128 start, u32 tile_overlay_num) {
     for (u32 i = 1, i < 5, i = i + 1) {
-        if (is_terrain(start + 20 * i)) {
+        Terrain ter @ start + 20 * i;
+        if (std::core::is_valid_enum(ter)) {
             return i;
         }
     }
@@ -116,7 +112,7 @@ struct Tile {
 
         u128 start = $ + (flags2.is_owned ? 17 : 0) + 12;
         
-        u32 num_buffers = find_next_tile(start, tile_overlay_num);
+        u32 num_buffers = detect_num_buffers(start, tile_overlay_num);
 
         if (num_buffers != tile_overlay_num) {
             std::print("WARNING: at addr 0x{0:08x} tile {1} num_buffers ({2}) != tile_overlay_num ({3})", $, std::core::array_index(), num_buffers, tile_overlay_num);
