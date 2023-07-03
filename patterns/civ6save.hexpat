@@ -115,7 +115,7 @@ struct Tile {
         u32 num_buffers = detect_num_buffers(start, tile_overlay_num);
 
         if (num_buffers != tile_overlay_num) {
-            std::print("WARNING: at addr 0x{0:08x} tile {1} num_buffers ({2}) != tile_overlay_num ({3})", $, std::core::array_index(), num_buffers, tile_overlay_num);
+            std::print("WARNING: tile {0} (0x{1:08x}) num_buffers ({2}) != tile_overlay_num ({3})", std::core::array_index(), addressof(travel_regions), num_buffers, tile_overlay_num);
         }
 
         Buffer buffers[num_buffers];
