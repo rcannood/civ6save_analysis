@@ -67,37 +67,21 @@ struct Buffer {
 fn is_terrain(u128 addr) {
     try {
         Terrain ter @ addr;
-        return ter == Terrain::Grassland ||
-          ter == Terrain::GrasslandHill ||
-          ter == Terrain::GrasslandMountain ||
-          ter == Terrain::Plains ||
-          ter == Terrain::PlainsHill ||
-          ter == Terrain::PlainsMountain ||
-          ter == Terrain::Desert ||
-          ter == Terrain::DesertHill ||
-          ter == Terrain::DesertMountain ||
-          ter == Terrain::Tundra ||
-          ter == Terrain::TundraHill ||
-          ter == Terrain::TundraMountain ||
-          ter == Terrain::Snow ||
-          ter == Terrain::SnowHill ||
-          ter == Terrain::SnowMountain ||
-          ter == Terrain::Coast ||
-          ter == Terrain::Ocean;
-        // return std::core::is_valid_enum(ter);
-        // return true;
+        return std::core::is_valid_enum(ter);
     } catch {
         return false;
     }
 };
 
-fn find_next_tile(s128 start) {
+fn find_next_tile(s128 start, u32 tile_overlay_num) {
     for (u32 i = 1, i < 5, i = i + 1) {
         if (is_terrain(start + 20 * i)) {
             return i;
         }
     }
-    return 0;
+    // if no feature tile is found, we're probably at the end of the 
+    // map, and we can probably just use the tile_overlay_num
+    return tile_overlay_num;
 };
 
 
@@ -132,10 +116,10 @@ struct Tile {
 
         u128 start = $ + (flags2.is_owned ? 17 : 0) + 12;
         
-        u32 num_buffers = find_next_tile(start);
+        u32 num_buffers = find_next_tile(start, tile_overlay_num);
 
         if (num_buffers != tile_overlay_num) {
-            std::print("at addr: 0x{0:08x} num_buffers != tile_overlay_num, num_buffers: {1}, tile_overlay_num: {2}", $, num_buffers, tile_overlay_num);
+            std::print("WARNING: at addr 0x{0:08x} tile {1} num_buffers ({2}) != tile_overlay_num ({3})", $, std::core::array_index(), num_buffers, tile_overlay_num);
         }
 
         Buffer buffers[num_buffers];
