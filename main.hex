@@ -2,9 +2,10 @@
 #include <civ6save_pre_tiles.hexpat>
 #include <std/core.pat>
 
-#pragma loop_limit 5000
+#pragma loop_limit 10000
 
 u32 numTiles @ start_tiles;
+std::print("Processing {0} tiles", numTiles);
 Tile tiles[numTiles] @ start_tiles + 4;
 
 
