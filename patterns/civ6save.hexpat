@@ -52,15 +52,60 @@ bitfield TileFlags3 {
     bit7 : 1;
 };
 
-struct Buffer {
-    // buffer0.num0 looks like it has value :
-    // '3651357813' for barb encampments and tribal villages
-    // '798339845' for tiles where there are or used to be forests and marshes ?
-    u32 num0;
-    u32 num1;
-    u32 num2;
-    u32 num3;
-    u32 num4;
+enum OverlayType : u32 {
+    City = 0x4C608A17,
+    CityState = 0xD77B5FDB,
+    Improvement = 3651357813,
+    Feature = 0x2F95B305,
+    Rotation = 0x4344ACEF
+};
+
+struct Overlay {
+    // first 4 bytes looks like it defines the type of buffer
+    // '17 8A 60 4C' or '1281395223' for civ cities
+    // 'DB 5F 7B D7' or '3615186907' for city states
+    // '75 4C A3 D9' or '3651357813' for improvements
+    // '05 B3 95 2F' or '798339845' for feature or natural wonders (possibly rotated)
+    // 'EF AC 44 43' or '1128574191' for rotated tiles
+    OverlayType overlay_type;
+
+    if (overlay_type == OverlayType::City) {
+        u32 city_num0;
+        u32 city_num1;
+        u32 city_num2;
+        u32 city_num3;
+    } else if (overlay_type == OverlayType::CityState) {
+        u32 citystate_num0;
+        u32 citystate_num1;
+        u32 citystate_num2;
+        u32 citystate_num3;
+    } else if (overlay_type == OverlayType::Improvement) {
+        u32 improvement_num0;
+        u32 improvement_num1;
+        u32 improvement_num2;
+        u32 improvement_num3;
+    } else if (overlay_type == OverlayType::Feature) {
+        u32 feature_num0;
+        u32 feature_num1;
+        u32 feature_num2;
+        u32 is_rotated;
+
+        if (is_rotated == 1) {
+            OverlayType overlay_type2; 
+            u32 rotation_num0;
+            u32 rotation_num1;
+            u32 rotation_num2;
+            u32 rotation_direction;
+
+            if (!std::core::is_valid_enum(overlay_type2)) {
+                std::print("WARNING: unrecognized buffer type 0x{0:08x}", u32(overlay_type2));
+            }
+        }
+    }
+
+    if (!std::core::is_valid_enum(overlay_type)) {
+        std::print("WARNING: unrecognized buffer type 0x{0:08x}", u32(overlay_type));
+    }
 };
 
 
@@ -110,6 +155,9 @@ struct Tile {
     if (tile_overlay_num >= 1) {
         u32 other_number;
 
+        Overlay overlay[tile_overlay_num];
+
+        /*
         u128 start = $ + (flags2.is_owned ? 17 : 0) + 12;
         
         u32 num_buffers = detect_num_buffers(start, tile_overlay_num);
@@ -119,6 +167,11 @@ struct Tile {
         }
 
         Buffer buffers[num_buffers];
+
+        if (buffers[0].num4 == 1 && num_buffers == tile_overlay_num) {
+            std::print("WARNING: tile {0} (0x{1:08x}) buffer.num4 == 1 but num_buffers ({2}) == tile_overlay_num ({3})", std::core::array_index(), addressof(travel_regions), num_buffers, tile_overlay_num);
+        }
+        */
     }
 
     if (flags2.is_owned) {
